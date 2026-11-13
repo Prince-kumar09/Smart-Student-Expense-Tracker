@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Student Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><span>💰</span><div><strong>SmartSpend</strong><small>Student Tracker</small></div></div>
+      <nav>
+        <a class="active" href="#dashboard">📊 Dashboard</a>
+        <a href="#expenses">💸 Expenses</a>
+        <a href="#budget">🎯 Budget</a>
+      </nav>
+      <div class="tip"><span>💡</span><p>Track every rupee. Small savings create big results.</p></div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div><p class="eyebrow">PERSONAL FINANCE</p><h1>Student Expense Tracker</h1><p class="muted">Know where your money goes.</p></div>
+        <button id="themeBtn" class="icon-btn" title="Toggle theme">🌙</button>
+      </header>
+
+      <section id="dashboard" class="cards">
+        <div class="card balance"><div class="card-top"><span>Remaining Balance</span><span>💳</span></div><h2 id="balance">₹0</h2><p id="balanceStatus">Set your budget to get started</p></div>
+        <div class="card"><div class="card-top"><span>Total Budget</span><span>🎯</span></div><h2 id="budgetValue">₹0</h2><p>Monthly limit</p></div>
+        <div class="card"><div class="card-top"><span>Total Income</span><span>📥</span></div><h2 id="incomeValue">₹0</h2><p>Money added</p></div>
+        <div class="card"><div class="card-top"><span>Total Expense</span><span>📤</span></div><h2 id="expenseValue">₹0</h2><p id="expenseCount">0 transactions</p></div>
+      </section>
+
+      <section class="grid two">
+        <div class="panel" id="budget">
+          <div class="panel-head"><div><h2>Monthly Budget</h2><p class="muted">Set your spending limit</p></div></div>
+          <div class="budget-form"><input id="budgetInput" type="number" min="0" placeholder="Enter budget e.g. 10000"><button id="setBudget">Set Budget</button></div>
+          <div class="progress-wrap"><div class="progress-label"><span>Budget used</span><strong id="budgetPercent">0%</strong></div><div class="progress"><div id="progressBar"></div></div></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><div><h2>Spending Overview</h2><p class="muted">By category</p></div></div>
+          <div class="chart-box"><canvas id="expenseChart"></canvas><div id="emptyChart">No expenses yet</div></div>
+        </div>
+      </section>
+
+      <section class="panel" id="expenses">
+        <div class="panel-head">
+          <div><h2>Transactions</h2><p class="muted">Manage your recent expenses</p></div>
+          <button class="primary" id="openModal">+ Add Expense</button>
+        </div>
+        <div class="toolbar">
+          <input id="search" type="search" placeholder="🔎 Search expense...">
+          <select id="filter"><option value="all">All categories</option><option>Food</option><option>Travel</option><option>Education</option><option>Shopping</option><option>Entertainment</option><option>Bills</option><option>Other</option></select>
+        </div>
+        <div class="table-wrap">
+          <table><thead><tr><th>Expense</th><th>Category</th><th>Date</th><th>Amount</th><th>Action</th></tr></thead>
+          <tbody id="expenseList"></tbody>
+        </table>
+        <div id="emptyState" class="empty"><div>🧾</div><h3>No expenses found</h3><p>Add your first expense to start tracking.</p></div>
+        </div>
+      </section>
+
+      <section class="quick">
+        <div><span>📌</span><div><strong>Smart tip</strong><p>Try keeping your essential expenses below 70% of your monthly budget.</p></div></div>
+        <button id="clearAll" class="danger-outline">Clear all data</button>
+      </section>
+
+      <footer>SmartSpend • Built for students • Data stays in your browser</footer>
+    </main>
+  </div>
+
+  <div id="modal" class="modal">
+    <div class="modal-box">
+      <div class="modal-head"><div><h2 id="modalTitle">Add Expense</h2><p class="muted">Record where your money went.</p></div><button id="closeModal" class="close">×</button></div>
+      <form id="expenseForm">
+        <label>Expense name<input id="name" required placeholder="e.g. College canteen"></label>
+        <div class="form-grid">
+          <label>Amount (₹)<input id="amount" type="number" min="1" required placeholder="150"></label>
+          <label>Category<select id="category" required><option>Food</option><option>Travel</option><option>Education</option><option>Shopping</option><option>Entertainment</option><option>Bills</option><option>Other</option></select></label>
+        </div>
+        <label>Date<input id="date" type="date" required></label>
+        <div class="modal-actions"><button type="button" class="secondary" id="cancel">Cancel</button><button class="primary" type="submit" id="saveBtn">Add Expense</button></div>
+      </form>
+    </div>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
